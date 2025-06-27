@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 
 public class SongRequest {
 
+    private Long id;
+
     @NotBlank(message = "Artist name is required")
     @Size(min = 2, max = 100, message = "Artist name must be between 2 and 100 characters")
     private String artist;
@@ -24,7 +26,6 @@ public class SongRequest {
     @Size(message = "Genre cannot exceed 50 characters")
     private String genre;
 
-    @Size(max = 4, message = "Length cannot exceed 4 characters")
     private Integer releaseYear;
 
 
@@ -33,7 +34,8 @@ public class SongRequest {
     public SongRequest() {
     }
 
-    public SongRequest( String artist, String album, String song, String songName, String genre, Integer releaseYear) {
+    public SongRequest(Long id, String artist, String album, String song, String songName, String genre, Integer releaseYear) {
+        this.id = id;
         this.artist = artist;
         this.album = album;
         this.songName = songName;
@@ -43,6 +45,13 @@ public class SongRequest {
         
     }
 
+   
+    public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id = id;
+    }
     public String getArtist() {
         return artist;
     }
@@ -101,4 +110,6 @@ public class SongRequest {
                 ", releaseYear=" + releaseYear +
         '}';
     }
+
+
 }

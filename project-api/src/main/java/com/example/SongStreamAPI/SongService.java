@@ -15,7 +15,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.StreamSupport;
 
 @Service
 public class SongService {
@@ -64,6 +71,42 @@ public class SongService {
         }
         return false;
     }
+
+//     // Assisted by watsonx Code Assistant
+
+// public Song processSongFile(File songFile) {
+//     try (InputStream inputStream = new FileInputStream(songFile)) {
+//         // Use the stream API to process the song file
+//         return processSongStream(inputStream);
+//     } catch (IOException e) {
+//         // Handle the exception appropriately
+//         throw new RuntimeException("Error processing song file", e);
+//     }
+// }
+
+// // Assisted by watsonx Code Assistant
+
+// private Song processSongStream(InputStream songInputStream) {
+//     // Use Java 8 Stream API to process the song file contents
+//     // For example, to read and count lines (assuming each line represents a metadata field):
+//     return StreamSupport.stream(new Song() {
+//         @Override
+//         public boolean tryAdvance(Consumer<? super String> action) {
+//             // Read a line from the input stream and pass it to the action
+//             // You may need to implement a custom Spliterator to read from the InputStream
+//         }
+
+//         // @Override
+//         // public Spliterator.OfObject<String> trySplit() {
+//         //     return null;
+//         // }
+//     }, 32, Long::sum, more())
+//             .map(this::processLine) // Replace with your actual processing logic
+//             .findAny() // Get the first processed line (adjust as needed)
+//             .orElse(null); // Return null if no lines were processed
+// }
+
+
 
     // NEW: Asynchronous method
     @Async // This method will be executed in a separate thread

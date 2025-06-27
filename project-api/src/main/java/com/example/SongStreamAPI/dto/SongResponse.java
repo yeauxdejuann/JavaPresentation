@@ -22,7 +22,8 @@ public class SongResponse {
     public SongResponse() {
     }
 
-   public SongResponse( String artist, String album, String song, String songName, String genre, Integer releaseYear) {
+   public SongResponse( Long id, String artist, String album, String song, String songName, String genre, Integer releaseYear) {
+        this.id = id;
         this.artist = artist;
         this.album = album;
         this.songName = songName;
@@ -30,6 +31,14 @@ public class SongResponse {
         this.song = song;
         this.releaseYear = releaseYear;
         
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
       public String getArtist() {
@@ -82,6 +91,7 @@ public class SongResponse {
         return
         
         "SongResponse{" +
+                ", id='" + id + '\'' +
                ", artist='" + artist + '\'' +
                ", song=" + song + '\'' +
                ", songName='" + songName + '\'' +

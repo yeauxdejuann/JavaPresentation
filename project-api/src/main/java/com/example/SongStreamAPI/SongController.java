@@ -37,7 +37,7 @@ public class SongController {
         if (song == null) {
             return null;
         } //String artist, String album, String genre, Integer releaseYear
-        return new SongResponse(  song.getArtist(), song.getSong(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
+        return new SongResponse( song.getId(), song.getArtist(), song.getSong(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
     }
 
     private Song convertToEntity(SongRequest songRequest) {
