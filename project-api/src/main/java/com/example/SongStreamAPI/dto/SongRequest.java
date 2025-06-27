@@ -9,23 +9,25 @@ import java.math.BigDecimal;
 public class SongRequest {
 
     @NotBlank(message = "Artist name is required")
-    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    @Size(min = 2, max = 100, message = "Artist name must be between 2 and 100 characters")
     private String artist;
 
-    @Size(max = message = "Description cannot exceed 500 characters")
+    @NotNull(message = "Song name is required")
+    @Size(message ="Song name cannot exceed 500 characters")
     private String songName;
 
-     @NotBlank(message = "Product name is required")
-    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    @NotNull(message = "Song is required")
+    @Size(message ="Song cannot exceed 1500 characters")
+    private String song;
+
+    @Size(max = 50, message ="Album cannot exceed 500 characters")
     private String album;
 
-    @NotNull(message = "Price is required")
-    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
+    @Size(message = "Genre cannot exceed 50 characters")
     private String genre;
 
-       @NotNull(message = "Price is required")
-    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
-    private String releaseYear;
+    @Size(max = 4, message = "Length cannot exceed 4 characters")
+    private Integer releaseYear;
 
 
 
@@ -33,41 +35,69 @@ public class SongRequest {
     public SongRequest() {
     }
 
-    public SongRequest( String artist, String album, String songName, String genre, Integer releaseYear) {
+    public SongRequest( String artist, String album, String song, String songName, String genre, Integer releaseYear) {
         this.artist = artist;
         this.album = album;
+        this.songName = songName;
+        this.genre = genre;
+        this.song = song;
+        this.releaseYear = releaseYear;
+        
     }
 
-    public String getName() {
-        return name;
+    public String getArtist() {
+        return artist;
+    }
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+    public String getAlbum() {
+        return album;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getGenre() {
+        return genre;
+    }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+    public String getSongName() {
+        return songName;
     }
 
-    public String getDescription() {
-        return description;
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getSong() {
+        return song;
+    }
+    public void setSong(String song) {
+        this.song = song;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getReleaseYear() {    
+        return releaseYear;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    private void setReleaseYear(String releaseYear) {
+        this.releaseYear = releaseYear;
     }
-
-    @Override
+  @Override
     public String toString() {
-        return "ProductRequest{" +
-               "name='" + name + '\'' +
-               ", description='" + description + '\'' +
-               ", price=" + price +
-               '}';
+        return
+        
+        "SongResquest{" +
+
+               ", artist='" + artist + '\'' +
+               ", song=" + song + '\'' +
+               ", songName='" + songName + '\'' +
+               ", album=" + album + '\'' +
+                ", genre=" + genre + '\'' +
+                ", releaseYear=" + releaseYear +
+        '}';
     }
 }

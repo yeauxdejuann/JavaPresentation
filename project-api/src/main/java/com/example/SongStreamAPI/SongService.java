@@ -1,4 +1,4 @@
-package com.example.SongStreamAPI; // <-- CHANGED: Now directly in com.example.productapi
+package com.example.SongStreamAPI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.SongStreamAPI.ProductNotFoundException;
-import com.example.SongStreamAPI.ProductRepository;
+import com.example.SongStreamAPI.SongRepository;
 import com.example.SongStreamAPI.Song;
 import com.example.SongStreamAPI.dto.SongRequest;
 
@@ -21,47 +21,45 @@ import java.util.List;
 public class SongService {
     private static final Logger logger = LoggerFactory.getLogger(SongService.class); // NEW
 
-    private final ProductRepository productRepository;
+    private final SongRepository songRepository;
 
     @Autowired
-    public SongService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public SongService(SongRepository songRespository) {
+        this.songRepository = songRespository;
     }
 
-    public Page<Song> getAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Page<Song> getAllongs(Pageable pageable) {
+        return songRepository.findAll(pageable);
     }
 
     public List<Song> getAllSongs() {
-        return productRepository.findAll();
+        return songRepository.findAll();
     }
 
     public Song getSongById(Long id) {
-        return productRepository.findById(id)
-                                .orElseThrow(() -> new ProductNotFoundException(id));
+        return songRepository.findById(id)
+        .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Transactional
     public Song addProduct(Song product) {
-        return productRepository.save(product);
+        return songRepository.save(product);
     }
 
     @Transactional
     public Song updateProduct(Long id, SongRequest songRequest) {
-        Song existingProduct = productRepository.findById(id)
-                                    .orElseThrow(() -> new ProductNotFoundException(id));
+        Song existingProduct = songRepository.findById(id)
+        .orElseThrow(() -> new ProductNotFoundException(id));
 
-        existingProduct.setSongName(productRequest.getName());
-        existingProduct.setGenre(productRequest.getDescription());
-        existingProduct.setPrice(productRequest.getPrice());
-
-        return productRepository.save(existingProduct);
+        existingProduct.setSongName(songRequest.getSongName());
+        existingProduct.setGenre(songRequest.getGenre());
+        return songRepository.save(existingProduct);
     }
 
     @Transactional
-    public boolean deleteProduct(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
+    public boolean deleteSong(Long id) {
+        if (songRepository.existsById(id)) {
+            songRepository.deleteById(id);
             return true;
         }
         return false;
@@ -69,17 +67,17 @@ public class SongService {
 
     // NEW: Asynchronous method
     @Async // This method will be executed in a separate thread
-    public void processAfterProductCreation(Long productId, String productName) {
-        logger.info("Async Task Started: Processing product ID {} ({}) in thread {}",
-                    productId, productName, Thread.currentThread().getName());
+    public void processAfterSongCreation(Long songId, String songName) {
+        logger.info("Async Task Started: Processing song ID {} ({}) in thread {}",
+                    songId, songName, Thread.currentThread().getName());
         try {
             // Simulate a long-running operation, e.g., sending an email,
             // calling another microservice, generating a report, etc.
             Thread.sleep(5000); // Sleep for 5 seconds
         } catch (InterruptedException e) {
-            logger.error("Async task interrupted for product ID {}: {}", productId, e.getMessage());
+            logger.error("Async task interrupted for song ID {}: {}", songId, e.getMessage());
             Thread.currentThread().interrupt(); // Restore the interrupted status
         }
-        logger.info("Async Task Finished: Processing product ID {} ({}) completed.", productId, productName);
+        logger.info("Async Task Finished: Processing song ID {} ({}) completed.", songId, songName);
     }
 }

@@ -41,11 +41,11 @@ public class SongController {
         return new SongResponse( song.getId(), song.getArtist(), song.getSong(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
     }
 
-    private Song convertToEntity(SongRequest productRequest) {
-        if (productRequest == null) {
+    private Song convertToEntity(SongRequest songRequest) {
+        if (songRequest == null) {
             return null;
         }
-        return new Song(songService.getName(), productRequest.getDescription(), productRequest.getPrice());
+        return new Song(songRequest.getArtist(), songRequest.getAlbum(), songRequest.getSong(), songRequest.getSongName(), songRequest.getGenre(), songRequest.getReleaseYear());
     }
 
     @GetMapping

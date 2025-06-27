@@ -8,7 +8,7 @@ public class SongResponse {
     private String description;
     private BigDecimal price;
 
-    public SongResponse(Long long1, String string, String string2, String string3, String string4, Integer integer) {
+    public SongResponse(Long long1, String string, String string2, String string3, String string4, String string5, Integer integer) {
     }
 
     public SongResponse(Long id, String name, String description, BigDecimal price) {

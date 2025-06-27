@@ -61,7 +61,7 @@ public class Song {
      public String getSong() { return song; }
     public void setSong(String song) { this.song = song; }
      public Integer getReleaseYear() { return releaseYear; }
-     public Integer setReleaseYear(Integer releaseYear) {   return this.releaseYear = releaseYear; }
+     public Integer setReleaseYear(Integer releaseYear) {  return this.releaseYear = releaseYear; }
     
     @Override
     public String toString() {
