@@ -1,0 +1,4 @@
+# src/main/resources/application-test.yml
+app:
+  message: Welcome to the Product API (Testing Environment)!
+  api-version: 1.0.0-TEST

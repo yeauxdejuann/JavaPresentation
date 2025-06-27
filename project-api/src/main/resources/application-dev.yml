@@ -1,0 +1,3 @@
+# src/main/resources/application-dev.yml
+app:
+  message: Whoa Nah, Welcome to The Dev Env for the Product Application!!
