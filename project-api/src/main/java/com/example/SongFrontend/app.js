@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const songKeyword= document.getElementById('songKeyword').value;
         event.preventDefault(); // Prevent form from submitting
        
-        alert(songTitle);
-        alert(songKeyword);
+        alert("song title entered: " + songTitle);
+        alert("keyword entered: " + songKeyword);
 
         document.getElementById("target").textContent = "Value from backend";
     
