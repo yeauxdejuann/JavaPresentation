@@ -1,4 +1,4 @@
-package com.example.productapi;
+package com.example.SongStreamAPI;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

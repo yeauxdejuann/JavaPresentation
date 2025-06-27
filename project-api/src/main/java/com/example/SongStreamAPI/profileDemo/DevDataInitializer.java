@@ -1,4 +1,4 @@
-package com.example.productapi.profileDemo;
+package com.example.SongStreamAPI.profileDemo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,24 +8,34 @@ import java.math.BigDecimal;
 
 public class SongRequest {
 
-    @NotBlank(message = "Product name is required")
+    @NotBlank(message = "Artist name is required")
     @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
-    private String name;
+    private String artist;
 
-    @Size(max = 500, message = "Description cannot exceed 500 characters")
-    private String description;
+    @Size(max = message = "Description cannot exceed 500 characters")
+    private String songName;
+
+     @NotBlank(message = "Product name is required")
+    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    private String album;
 
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.01", message = "Price must be greater than 0")
-    private BigDecimal price;
+    private String genre;
+
+       @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
+    private String releaseYear;
+
+
+
 
     public SongRequest() {
     }
 
-    public SongRequest(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
+    public SongRequest( String artist, String album, String songName, String genre, Integer releaseYear) {
+        this.artist = artist;
+        this.album = album;
     }
 
     public String getName() {

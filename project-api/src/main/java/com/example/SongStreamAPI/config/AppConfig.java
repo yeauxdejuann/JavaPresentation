@@ -1,4 +1,4 @@
-package com.example.productapi.config;
+package com.example.SongStreamAPI.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

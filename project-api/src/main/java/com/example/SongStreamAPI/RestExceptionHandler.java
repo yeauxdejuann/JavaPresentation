@@ -1,4 +1,4 @@
-package com.example.productapi;
+package com.example.SongStreamAPI;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.example.productapi;
+package com.example.SongStreamAPI;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
