@@ -11,15 +11,15 @@ import com.example.SongStreamAPI.SongService;
 import java.time.LocalDateTime;
     
     @Component // Marks this class as a Spring component, so it's picked up for scheduling
-    public class ProductScheduler {
+    public class SongScheduler {
     
-        private static final Logger logger = LoggerFactory.getLogger(ProductScheduler.class);
+        private static final Logger logger = LoggerFactory.getLogger(SongScheduler.class);
     
-        private final SongService productService;
+        private final SongService songService;
     
         @Autowired
-        public ProductScheduler(SongService productService) {
-            this.productService = productService;
+        public SongScheduler() {
+            this.songService = songService;
         }
     
         /**
@@ -28,12 +28,17 @@ import java.time.LocalDateTime;
          * If an execution takes longer than the fixedRate, the next execution will start immediately after the previous one finishes.
          */
         @Scheduled(fixedRate = 10000) // Runs every 10 seconds (10,000 milliseconds)
-        public void reportProductCount() {
-            long count = productService.getAllProducts().size(); // Get current product count
-            logger.info("ProductScheduler - [{}]: Current product count: {}", LocalDateTime.now(), count);
+        public void reportSongCount() {
+
+
+            long count = songService.getAllSongs().size(); // Get current product count
+            logger.info("SongScheduler - [{}]: Current song count: {}", LocalDateTime.now(), count);
         }
     
         /**
+         * 
+         * 
+         * 
          * Optional: Example of fixedDelay. Runs 15 seconds after the PREVIOUS task COMPLETES.
          * Useful if you need a guaranteed delay between task executions.
          */

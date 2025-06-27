@@ -49,26 +49,26 @@ public class SongController {
     }
 
     @GetMapping
-    public Page<SongResponse> getAllProducts(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
-        return productService.getAllProducts(pageable)
+    public Page<SongResponse> getAllSongsPage(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
+        return songService.getAllSongs(pageable)
                              .map(this::convertToResponseDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SongResponse> getProductById(@PathVariable Long id) {
-        Song product = productService.getProductById(id);
+        Song product = songService.getSongById(id);
         return new ResponseEntity<>(convertToResponseDto(product), HttpStatus.OK);
     }
 
    // MODIFIED: Call asynchronous method after product creation
     @PostMapping
-    public ResponseEntity<SongResponse> addProduct(@Valid @RequestBody SongRequest productRequest) {
-        logger.info("Controller: Received request to add product: {}", productRequest.getName()); // NEW
-        Song productToSave = convertToEntity(productRequest);
-        Song newProduct = productService.addProduct(productToSave);
+    public ResponseEntity<SongResponse> addSong(@Valid @RequestBody SongRequest songRequest) {
+        logger.info("Controller: Received request to add product: {}", songRequest.getSong()); // NEW
+        Song songToSave = convertToEntity(songRequest);
+        Song newProduct = songService.addSong(songToSave);
 
         // Trigger the asynchronous background process
-        productService.processAfterProductCreation(newProduct.getId(), newProduct.getSongName()); // NEW
+        songService.processAfterSongCreation(newProduct.getId(), newProduct.getSongName()); // NEW
 
         logger.info("Controller: Responding for product {} (Async task initiated).", newProduct.getSongName()); // NEW
         return new ResponseEntity<>(convertToResponseDto(newProduct), HttpStatus.CREATED);
