@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    const form = document.getElementById("songForm");
+
+    form.addEventListener("submit", function (event) {
+        const songTitle = document.getElementById('songTitle').value;
+        const songKeyword= document.getElementById('songKeyword').value;
+        event.preventDefault(); // Prevent form from submitting
+       
+        alert(songTitle);
+        alert(songKeyword);
+
+        document.getElementById("target").textContent = "SomeLength";
+    
+    });
+
+
     // DOM Elements
     const loginSection = document.getElementById('login-section');
     const productSection = document.getElementById('product-section');

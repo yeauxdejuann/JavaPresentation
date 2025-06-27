@@ -8,10 +8,10 @@
         body { font-family: Arial, sans-serif; margin: 20px; background-color: purple; color: #333; }
         .container { max-width: 800px; margin: 0 auto; background-color: #d4cb2a; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         h1 { text-align: center; color: red; }
-        #login-section, #product-section { margin-top: 20px; padding: 15px; background-color: orangered; border: 1px solid #ddd; border-radius: 5px; }
+        #login-section, #product-section { margin-top: 20px; padding: 15px; background-color: grey; border: 0px solid #ddd; border-radius: 5px; }
         #login-section h2, #product-section h2 { margin-top: 0; background-color: green #333; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], input[type="password"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        input[type="text"], input[type="password"] { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 0px solid #ddd; border-radius: 4px; }
         button {
             background-color: green;
             color: white;
@@ -34,28 +34,36 @@
 </head>
 <body>
     <div class="container">
-        <h1><bold>💀 If YOU Are Reading This, I YOUR Have Data!💀</bold></h1>
+        <h1><bold>MelodyMetrics</bold></h1>
 
         <div id="login-section">
-            <h2>Login or Not I Know Your Credentials 😈</h2>
-            <label for="username"> We Know Your <bold>Username:</bold></label>
+            <h2>Login</h2>
+            <label for="username"> <bold>Username:</bold></label>
             <input type="text" id="username" value="user"> <!-- Pre-fill for convenience -->
-            <label for="password"><bold>We Know Your </bold>🛅 Password:</label>
-            <input type="password" id="password" value="password"> <!-- Pre-fill for convenience -->
-            <!-- <label for="currency"> Donate to prevent Data Flush</bold></label>
-            <input type="text" id="username"placeholder="🤑💵💸💰"> -->
-            <button id="login-button">Press the delete ALL files from root</button>
+            <label for="password"> Password:</label>
+            <input type="password" id="password" value="password">
+            <button id="login-button">Login</button>
             <p id="error-message"></p>
         </div>
 
         <div id="product-section" style="display: none;">
+            <!-- <button id="logout-button" class="logout-button">Logout</button> -->
+<div style="padding: 20px; width: 500px; border: 0px solid #ccc;">
+  <form id="songForm" name="songForm">
+    <label for="songTitle">Enter Song Title:</label>
+    <input type="text" id="songTitle" name="songTitle" style="width: 100%;"><br><br>
+      <label for="songTitle">Enter Keyword:</label>
+    <input type="text" id="songKeyword" name="songKeyword" style="width: 100%;"><br><br>
+    <button  name="submit" type="submit">Submit</button>
+  </form>
+</div>
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Products</h2>
-                <button id="logout-button" class="logout-button">Logout</button>
+                <h2>Number of characters in the song: <span id="target"></span></h2>
+               
             </div>
-            <ul id="product-list">
-                <!-- Products will be dynamically loaded here -->
-            </ul>
+           <!-- <ul id="product-list">
+                 Products will be dynamically loaded here
+            </ul>  -->
         </div>
     </div>
 
