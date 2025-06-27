@@ -1,4 +1,4 @@
-package com.example.productapi;
+package com.example.SongStreamAPI;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    private final ProductService productService;
+    private final SongService productService;
 
-    public DataLoader(ProductService productService) {
+    public DataLoader(SongService productService) {
         this.productService = productService;
     }
 

@@ -1,14 +1,15 @@
 
-package com.example.productapi;
-
-import com.example.productapi.dto.ProductRequest;
-import com.example.productapi.dto.ProductResponse;
-import com.example.productapi.ProductService; // <-- CHANGED: No longer in 'service' package
+package com.example.SongStreamAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.SongStreamAPI.SongService;
+import com.example.SongStreamAPI.dto.SongRequest;
+import com.example.SongStreamAPI.dto.SongResponse;
+
 import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -22,46 +23,46 @@ import org.slf4j.LoggerFactory; // NEW
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RestController
 @RequestMapping("/api/products")
-public class ProductController {
+public class SongController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class); // NEW
+    private static final Logger logger = LoggerFactory.getLogger(SongController.class); // NEW
 
-    private final ProductService productService;
+    private final SongService songService;
 
     @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public SongController(SongService songService) {
+        this.songService = songService;
     }
 
-    private ProductResponse convertToResponseDto(Song product) {
-        if (product == null) {
+    private SongResponse convertToResponseDto(Song song) {
+        if (song == null) {
             return null;
-        }
-        return new ProductResponse(product.getId(), product.getSongName(), product.getGenre(), product.getPrice());
+        } //String artist, String album, String genre, Integer releaseYear
+        return new SongResponse( song.getId(), song.getArtist(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
     }
 
-    private Song convertToEntity(ProductRequest productRequest) {
+    private Song convertToEntity(SongRequest productRequest) {
         if (productRequest == null) {
             return null;
         }
-        return new Song(productRequest.getName(), productRequest.getDescription(), productRequest.getPrice());
+        return new Song(songService.getName(), productRequest.getDescription(), productRequest.getPrice());
     }
 
     @GetMapping
-    public Page<ProductResponse> getAllProducts(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
+    public Page<SongResponse> getAllProducts(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
         return productService.getAllProducts(pageable)
                              .map(this::convertToResponseDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+    public ResponseEntity<SongResponse> getProductById(@PathVariable Long id) {
         Song product = productService.getProductById(id);
         return new ResponseEntity<>(convertToResponseDto(product), HttpStatus.OK);
     }
 
    // MODIFIED: Call asynchronous method after product creation
     @PostMapping
-    public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<SongResponse> addProduct(@Valid @RequestBody SongRequest productRequest) {
         logger.info("Controller: Received request to add product: {}", productRequest.getName()); // NEW
         Song productToSave = convertToEntity(productRequest);
         Song newProduct = productService.addProduct(productToSave);
@@ -73,7 +74,7 @@ public class ProductController {
         return new ResponseEntity<>(convertToResponseDto(newProduct), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<SongResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody SongRequest productRequest) {
         Song updatedEntityDetails = convertToEntity(productRequest);
         Song updatedProduct = productService.updateProduct(id, productRequest); // <-- CORRECTED LINE
         return new ResponseEntity<>(convertToResponseDto(updatedProduct), HttpStatus.OK);

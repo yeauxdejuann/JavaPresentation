@@ -1,17 +1,17 @@
-package com.example.productapi.dto;
+package com.example.SongStreamAPI.dto;
 
 import java.math.BigDecimal;
 
-public class ProductResponse {
+public class SongResponse {
     private Long id;
     private String name;
     private String description;
     private BigDecimal price;
 
-    public ProductResponse() {
+    public SongResponse() {
     }
 
-    public ProductResponse(Long id, String name, String description, BigDecimal price) {
+    public SongResponse(Long id, String name, String description, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -1,23 +1,24 @@
-    package com.example.productapi;
+    package com.example.SongStreamAPI;
     
-    import com.example.productapi.ProductService;
     import org.slf4j.Logger;
     import org.slf4j.LoggerFactory;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.scheduling.annotation.Scheduled;
     import org.springframework.stereotype.Component;
-    
-    import java.time.LocalDateTime;
+
+import com.example.SongStreamAPI.SongService;
+
+import java.time.LocalDateTime;
     
     @Component // Marks this class as a Spring component, so it's picked up for scheduling
     public class ProductScheduler {
     
         private static final Logger logger = LoggerFactory.getLogger(ProductScheduler.class);
     
-        private final ProductService productService;
+        private final SongService productService;
     
         @Autowired
-        public ProductScheduler(ProductService productService) {
+        public ProductScheduler(SongService productService) {
             this.productService = productService;
         }
     

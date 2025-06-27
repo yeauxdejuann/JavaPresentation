@@ -1,15 +1,16 @@
-package com.example.productapi; // <-- CHANGED: Now directly in com.example.productapi
-
-import com.example.productapi.Song;
-import com.example.productapi.ProductRepository; // <-- CHANGED: No longer in 'repository' package
-import com.example.productapi.ProductNotFoundException;
-import com.example.productapi.dto.ProductRequest;
+package com.example.SongStreamAPI; // <-- CHANGED: Now directly in com.example.productapi
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.SongStreamAPI.ProductNotFoundException;
+import com.example.SongStreamAPI.ProductRepository;
+import com.example.SongStreamAPI.Song;
+import com.example.SongStreamAPI.dto.SongRequest;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -17,13 +18,13 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.List;
 
 @Service
-public class ProductService {
-    private static final Logger logger = LoggerFactory.getLogger(ProductService.class); // NEW
+public class SongService {
+    private static final Logger logger = LoggerFactory.getLogger(SongService.class); // NEW
 
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public SongService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -46,7 +47,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Song updateProduct(Long id, ProductRequest productRequest) {
+    public Song updateProduct(Long id, SongRequest productRequest) {
         Song existingProduct = productRepository.findById(id)
                                     .orElseThrow(() -> new ProductNotFoundException(id));
 

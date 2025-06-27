@@ -1,4 +1,4 @@
-package com.example.productapi.dto;
+package com.example.SongStreamAPI.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
-public class ProductRequest {
+public class SongRequest {
 
     @NotBlank(message = "Product name is required")
     @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
@@ -19,10 +19,10 @@ public class ProductRequest {
     @DecimalMin(value = "0.01", message = "Price must be greater than 0")
     private BigDecimal price;
 
-    public ProductRequest() {
+    public SongRequest() {
     }
 
-    public ProductRequest(String name, String description, BigDecimal price) {
+    public SongRequest(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
