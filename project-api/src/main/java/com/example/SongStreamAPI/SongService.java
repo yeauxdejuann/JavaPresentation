@@ -28,15 +28,15 @@ public class SongService {
         this.productRepository = productRepository;
     }
 
-    public Page<Song> getAllProducts(Pageable pageable) {
+    public Page<Song> getAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
-    public List<Song> getAllProducts() {
+    public List<Song> getAllSongs() {
         return productRepository.findAll();
     }
 
-    public Song getProductById(Long id) {
+    public Song getSongById(Long id) {
         return productRepository.findById(id)
                                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
@@ -47,7 +47,7 @@ public class SongService {
     }
 
     @Transactional
-    public Song updateProduct(Long id, SongRequest productRequest) {
+    public Song updateProduct(Long id, SongRequest songRequest) {
         Song existingProduct = productRepository.findById(id)
                                     .orElseThrow(() -> new ProductNotFoundException(id));
 
