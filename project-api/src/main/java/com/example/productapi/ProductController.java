@@ -33,18 +33,18 @@ public class ProductController {
         this.productService = productService;
     }
 
-    private ProductResponse convertToResponseDto(Product product) {
+    private ProductResponse convertToResponseDto(Song product) {
         if (product == null) {
             return null;
         }
-        return new ProductResponse(product.getId(), product.getName(), product.getDescription(), product.getPrice());
+        return new ProductResponse(product.getId(), product.getSongName(), product.getGenre(), product.getPrice());
     }
 
-    private Product convertToEntity(ProductRequest productRequest) {
+    private Song convertToEntity(ProductRequest productRequest) {
         if (productRequest == null) {
             return null;
         }
-        return new Product(productRequest.getName(), productRequest.getDescription(), productRequest.getPrice());
+        return new Song(productRequest.getName(), productRequest.getDescription(), productRequest.getPrice());
     }
 
     @GetMapping
@@ -55,7 +55,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
+        Song product = productService.getProductById(id);
         return new ResponseEntity<>(convertToResponseDto(product), HttpStatus.OK);
     }
 
@@ -63,19 +63,19 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) {
         logger.info("Controller: Received request to add product: {}", productRequest.getName()); // NEW
-        Product productToSave = convertToEntity(productRequest);
-        Product newProduct = productService.addProduct(productToSave);
+        Song productToSave = convertToEntity(productRequest);
+        Song newProduct = productService.addProduct(productToSave);
 
         // Trigger the asynchronous background process
-        productService.processAfterProductCreation(newProduct.getId(), newProduct.getName()); // NEW
+        productService.processAfterProductCreation(newProduct.getId(), newProduct.getSongName()); // NEW
 
-        logger.info("Controller: Responding for product {} (Async task initiated).", newProduct.getName()); // NEW
+        logger.info("Controller: Responding for product {} (Async task initiated).", newProduct.getSongName()); // NEW
         return new ResponseEntity<>(convertToResponseDto(newProduct), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
-        Product updatedEntityDetails = convertToEntity(productRequest);
-        Product updatedProduct = productService.updateProduct(id, productRequest); // <-- CORRECTED LINE
+        Song updatedEntityDetails = convertToEntity(productRequest);
+        Song updatedProduct = productService.updateProduct(id, productRequest); // <-- CORRECTED LINE
         return new ResponseEntity<>(convertToResponseDto(updatedProduct), HttpStatus.OK);
     }
 

@@ -10,37 +10,44 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "songs")
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String name;
+    private String artist;
+
+    @Column(nullable = false, length = 100)
+    private String songName;
 
     @Column(length = 500)
-    private String description;
+    private String genre;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(length = 500)
+    private String album;
 
-    public Product() {
+    @Column(length = 500)
+    private String releaseYear;
+
+
+    public Song() {
     }
 
-    public Product(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
+    public Song(String name, String description, BigDecimal price) {
+        this.songName = name;
+        this.genre = description;
         this.price = price;
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getSongName() { return songName; }
+    public void setSongName(String name) { this.songName = name; }
+    public String getGenre() { return genre; }
+    public void setGenre(String description) { this.genre = description; }
     public BigDecimal getPrice() { return price; }
     public void setPrice(BigDecimal price) { this.price = price; }
 
@@ -48,8 +55,8 @@ public class Product {
     public String toString() {
         return "Product{" +
                "id=" + id +
-               ", name='" + name + '\'' +
-               ", description='" + description + '\'' +
+               ", name='" + songName + '\'' +
+               ", description='" + genre + '\'' +
                ", price=" + price +
                '}';
     }
@@ -58,15 +65,15 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
+        Song product = (Song) o;
         return Objects.equals(id, product.id) &&
-               Objects.equals(name, product.name) &&
-               Objects.equals(description, product.description) &&
+               Objects.equals(songName, product.songName) &&
+               Objects.equals(genre, product.genre) &&
                Objects.equals(price, product.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price);
+        return Objects.hash(id, songName, genre, price);
     }
 }

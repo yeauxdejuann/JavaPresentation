@@ -1,6 +1,6 @@
 package com.example.productapi; // <-- CHANGED: Now directly in com.example.productapi
 
-import com.example.productapi.Product;
+import com.example.productapi.Song;
 import com.example.productapi.ProductRepository; // <-- CHANGED: No longer in 'repository' package
 import com.example.productapi.ProductNotFoundException;
 import com.example.productapi.dto.ProductRequest;
@@ -27,31 +27,31 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Page<Product> getAllProducts(Pageable pageable) {
+    public Page<Song> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
-    public List<Product> getAllProducts() {
+    public List<Song> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) {
+    public Song getProductById(Long id) {
         return productRepository.findById(id)
                                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Transactional
-    public Product addProduct(Product product) {
+    public Song addProduct(Song product) {
         return productRepository.save(product);
     }
 
     @Transactional
-    public Product updateProduct(Long id, ProductRequest productRequest) {
-        Product existingProduct = productRepository.findById(id)
+    public Song updateProduct(Long id, ProductRequest productRequest) {
+        Song existingProduct = productRepository.findById(id)
                                     .orElseThrow(() -> new ProductNotFoundException(id));
 
-        existingProduct.setName(productRequest.getName());
-        existingProduct.setDescription(productRequest.getDescription());
+        existingProduct.setSongName(productRequest.getName());
+        existingProduct.setGenre(productRequest.getDescription());
         existingProduct.setPrice(productRequest.getPrice());
 
         return productRepository.save(existingProduct);

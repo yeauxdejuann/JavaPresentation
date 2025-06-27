@@ -19,9 +19,9 @@ public class DataLoader implements CommandLineRunner {
         if (productService.getAllProducts().isEmpty()) {
             System.out.println("Loading initial product data...");
 
-            productService.addProduct(new Product("Laptop Pro", "Powerful laptop for professionals", new BigDecimal("1200.00")));
-            productService.addProduct(new Product("Wireless Mouse", "Ergonomic wireless mouse", new BigDecimal("25.99")));
-            productService.addProduct(new Product("Mechanical Keyboard", "RGB mechanical gaming keyboard", new BigDecimal("89.95")));
+            productService.addProduct(new Song("Laptop Pro", "Powerful laptop for professionals", new BigDecimal("1200.00")));
+            productService.addProduct(new Song("Wireless Mouse", "Ergonomic wireless mouse", new BigDecimal("25.99")));
+            productService.addProduct(new Song("Mechanical Keyboard", "RGB mechanical gaming keyboard", new BigDecimal("89.95")));
 
             System.out.println("Initial product data loaded.");
         } else {
