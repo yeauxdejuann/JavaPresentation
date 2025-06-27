@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Configuration
     const API_BASE_URL = 'http://localhost:8080/api/products';
+    const SONGS_API_BASE_URL = 'http://localhost:8080/api/songs';
     let authHeader = ''; // This will store our Basic Auth header
 
     // --- Utility Functions ---
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Include the Authorization header for secured endpoint
-            const response = await fetch(API_BASE_URL, {
+            const response = await fetch(SONGS_API_BASE_URLAPI_BASE_URL, {
                 method: 'GET',
                 headers: {
                     'Authorization': authHeader
@@ -112,6 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 // Assuming data.content is the array of products from paginated response
                 const products = data.content || data; // Handle both paginated and non-paginated (just in case)
+               
+                console.log(products);
+               
                 if (products.length === 0) {
                     productList.innerHTML = '<li>No products found.</li>';
                 } else {
