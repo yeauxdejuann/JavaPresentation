@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    const form = document.getElementById("songForm");
+
+    form.addEventListener("submit", function (event) {
+        const songTitle = document.getElementById('songTitle').value;
+        const songKeyword= document.getElementById('songKeyword').value;
+        event.preventDefault(); // Prevent form from submitting
+       
+        alert("song title entered: " + songTitle);
+        alert("keyword entered: " + songKeyword);
+
+        document.getElementById("target").textContent = "Value from backend";
+    
+    });
+
+
     // DOM Elements
     const loginSection = document.getElementById('login-section');
     const productSection = document.getElementById('product-section');
@@ -36,6 +52,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- API Interaction Functions ---
+       async function getNumberOfCharacters() {
+        errorMessage.textContent = ''; // Clear previous errors
+        productList.innerHTML = ''; // Clear existing list
+
+        try {
+            // Include the Authorization header for secured endpoint
+            const response = await fetch(API_BASE_URL, {
+                method: 'GET',
+                headers: {
+                    'Authorization': authHeader
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Assuming data.content is the array of products from paginated response
+                const products = data.content || data; // Handle both paginated and non-paginated (just in case)
+                if (products.length === 0) {
+                    productList.innerHTML = '<li>No products found.</li>';
+                } else {
+                    products.forEach(product => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <span><strong>${product.name}</strong> - $${product.price.toFixed(2)} (${product.description})</span>
+                        `;
+                        productList.appendChild(listItem);
+                    });
+                }
+            } else if (response.status === 401) {
+                // Unauthorized - likely session expired or invalid credentials
+                displayMessage(errorMessage, 'Unauthorized. Please log in again.', true);
+                logout(); // Force logout
+            } else {
+                const errorData = await response.json();
+                displayMessage(errorMessage, `Failed to fetch products: ${errorData.message || response.statusText}`, true);
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            displayMessage(errorMessage, 'Network error. Could not connect to the server.', true);
+        }
+    }
 
     // Function to fetch products from the backend
     async function fetchProducts() {
