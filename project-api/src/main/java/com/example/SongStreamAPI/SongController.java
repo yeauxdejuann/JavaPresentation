@@ -15,14 +15,13 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-// import java.util.List;
 // import java.util.stream.Collectors;
 import org.slf4j.Logger; // NEW
 import org.slf4j.LoggerFactory; // NEW
 
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/songs")
 public class SongController {
 
     private static final Logger logger = LoggerFactory.getLogger(SongController.class); // NEW
@@ -38,7 +37,7 @@ public class SongController {
         if (song == null) {
             return null;
         } //String artist, String album, String genre, Integer releaseYear
-        return new SongResponse( song.getId(), song.getArtist(), song.getSong(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
+        return new SongResponse(  song.getArtist(), song.getSong(), song.getAlbum(), song.getSongName(), song.getGenre(), song.getReleaseYear() );
     }
 
     private Song convertToEntity(SongRequest songRequest) {
@@ -49,13 +48,13 @@ public class SongController {
     }
 
     @GetMapping
-    public Page<SongResponse> getAllSongsPage(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
+    public Page<SongResponse> getAllSongsPage(@PageableDefault(size = 5, sort = "songName") Pageable pageable) {
         return songService.getAllSongs(pageable)
                              .map(this::convertToResponseDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SongResponse> getProductById(@PathVariable Long id) {
+    public ResponseEntity<SongResponse> getSongById(@PathVariable Long id) {
         Song product = songService.getSongById(id);
         return new ResponseEntity<>(convertToResponseDto(product), HttpStatus.OK);
     }
@@ -63,26 +62,26 @@ public class SongController {
    // MODIFIED: Call asynchronous method after product creation
     @PostMapping
     public ResponseEntity<SongResponse> addSong(@Valid @RequestBody SongRequest songRequest) {
-        logger.info("Controller: Received request to add product: {}", songRequest.getSong()); // NEW
+        logger.info("Controller: Received request to add song: {}", songRequest.getSong()); // NEW
         Song songToSave = convertToEntity(songRequest);
-        Song newProduct = songService.addSong(songToSave);
+        Song newSong = songService.addSong(songToSave);
 
         // Trigger the asynchronous background process
-        songService.processAfterSongCreation(newProduct.getId(), newProduct.getSongName()); // NEW
+        songService.processAfterSongCreation(newSong.getId(), newSong.getSongName()); // NEW
 
-        logger.info("Controller: Responding for product {} (Async task initiated).", newProduct.getSongName()); // NEW
-        return new ResponseEntity<>(convertToResponseDto(newProduct), HttpStatus.CREATED);
+        logger.info("Controller: Responding for song {} (Async task initiated).", newSong.getSongName()); // NEW
+        return new ResponseEntity<>(convertToResponseDto(newSong), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<SongResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody SongRequest productRequest) {
-        Song updatedEntityDetails = convertToEntity(productRequest);
-        Song updatedProduct = productService.updateProduct(id, productRequest); // <-- CORRECTED LINE
+    public ResponseEntity<SongResponse> updateSong(@PathVariable Long id, @Valid @RequestBody SongRequest songRequest) {
+        Song updatedEntityDetails = convertToEntity(songRequest);
+        Song updatedProduct = songService.updateSong(id, songRequest); // <-- CORRECTED LINE
         return new ResponseEntity<>(convertToResponseDto(updatedProduct), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        if (productService.deleteProduct(id)) {
+    public ResponseEntity<Void> deleteSong(@PathVariable Long id) {
+        if (songService.deleteSong(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

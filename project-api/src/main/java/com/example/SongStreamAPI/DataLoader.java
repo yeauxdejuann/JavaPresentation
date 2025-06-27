@@ -16,13 +16,13 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (songService.getAllProducts().isEmpty()) {
-            System.out.println("Loading initial product data...");
+        if (songService.getAllSongs().isEmpty()) {
+            System.out.println("Loading initial song data...");
 
-            songService.addSong(new Song("Laptop Pro", "Powerful laptop for professionals", new BigDecimal("1200.00")));
-            songService.addSong(new Song("Wireless Mouse", "Ergonomic wireless mouse", new BigDecimal("25.99")));
-            songService.addSong(new Song("Mechanical Keyboard", "RGB mechanical gaming keyboard", new BigDecimal("89.95")));
-
+            songService.addSong(new Song("Kendrick Lamar", "pool full of liquor, dive in it", "Hip Hop","Swimming Pools", "Hip-Hop",  2012));
+            songService.addSong(new Song("Kendrick Lamar", "Alright", "Hip Hop","Alright", "Hip-Hop",  2015));
+            songService.addSong(new Song("Kendrick Lamar", "Be HUMBLE, SIT DOWN.", "Hip Hop","HUMBLE.", "Hip-Hop",  2013));
+            songService.addSong(new Song("Tems", "ride the wave of mi history...", "TEMS", "found","AFro-Beats", 2020  ));          
             System.out.println("Initial product data loaded.");
         } else {
             System.out.println("Products already exist, skipping initial data load.");

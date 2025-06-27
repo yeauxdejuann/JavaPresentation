@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(SongNotFoundException.class)
+    public ResponseEntity<Object> handleProductNotFoundException(SongNotFoundException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());

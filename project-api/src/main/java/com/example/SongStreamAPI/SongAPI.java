@@ -7,10 +7,10 @@ import org.springframework.scheduling.annotation.EnableScheduling; // NEW
 
 @SpringBootApplication
 @EnableScheduling // NEW: Enables Spring's scheduling capabilities
-public class ProductApiApp {
+public class SongAPI {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProductApiApp.class, args);
+        SpringApplication.run(SongAPI.class, args);
     }
 
 }

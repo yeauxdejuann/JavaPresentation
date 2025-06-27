@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
         private final SongService songService;
     
         @Autowired
-        public SongScheduler() {
+        public SongScheduler(SongService songService) {
             this.songService = songService;
         }
     

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.SongStreamAPI.ProductNotFoundException;
+import com.example.SongStreamAPI.SongNotFoundException;
 import com.example.SongStreamAPI.SongRepository;
 import com.example.SongStreamAPI.Song;
 import com.example.SongStreamAPI.dto.SongRequest;
@@ -28,7 +28,7 @@ public class SongService {
         this.songRepository = songRespository;
     }
 
-    public Page<Song> getAllongs(Pageable pageable) {
+    public Page<Song> getAllSongs(Pageable pageable) {
         return songRepository.findAll(pageable);
     }
 
@@ -38,18 +38,18 @@ public class SongService {
 
     public Song getSongById(Long id) {
         return songRepository.findById(id)
-        .orElseThrow(() -> new ProductNotFoundException(id));
+        .orElseThrow(() -> new SongNotFoundException(id));
     }
 
     @Transactional
-    public Song addProduct(Song product) {
-        return songRepository.save(product);
+    public Song addSong(Song song) {
+        return songRepository.save(song);
     }
 
     @Transactional
-    public Song updateProduct(Long id, SongRequest songRequest) {
+    public Song updateSong(Long id, SongRequest songRequest) {
         Song existingProduct = songRepository.findById(id)
-        .orElseThrow(() -> new ProductNotFoundException(id));
+        .orElseThrow(() -> new SongNotFoundException(id));
 
         existingProduct.setSongName(songRequest.getSongName());
         existingProduct.setGenre(songRequest.getGenre());

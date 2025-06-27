@@ -51,7 +51,7 @@ public class Song {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getSongName() { return songName; }
-    public void setSongName(String name) { this.songName = name; }
+    public void setSongName(String songName) { this.songName = songName; }
     public String getGenre() { return genre; }
     public void setGenre(String description) { this.genre = description; }
     public String getArtist() { return artist; }
@@ -83,13 +83,13 @@ public class Song {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Song product = (Song) o;
-        return Objects.equals(id, product.id) &&
-               Objects.equals(songName, product.songName) &&
-               Objects.equals(genre, product.genre) &&
-               Objects.equals(artist, product.artist) &&
-               Objects.equals(album, product.album) &&
-               Objects.equals(releaseYear, product.releaseYear);
+        Song song = (Song) o;
+        return Objects.equals(id, song.id) &&
+               Objects.equals(songName, song.songName) &&
+               Objects.equals(genre, song.genre) &&
+               Objects.equals(artist, song.artist) &&
+               Objects.equals(album, song.album) &&
+               Objects.equals(releaseYear, song.releaseYear);
     }
 
     @Override

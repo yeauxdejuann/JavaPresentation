@@ -1,10 +1,8 @@
 package com.example.SongStreamAPI.dto;
 
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.math.BigDecimal;
 
 public class SongRequest {
 
@@ -54,16 +52,19 @@ public class SongRequest {
     public String getAlbum() {
         return album;
     }
+     public void setAlbum(String album) {
+        this.album = album;
+    }
 
     public String getGenre() {
         return genre;
     }
     public void setGenre(String genre) {
         this.genre = genre;
+
     }
-    public void setAlbum(String album) {
-        this.album = album;
-    }
+  
+   
     public String getSongName() {
         return songName;
     }
@@ -79,11 +80,11 @@ public class SongRequest {
         this.song = song;
     }
 
-    public String getReleaseYear() {    
+    public Integer getReleaseYear() {    
         return releaseYear;
     }
 
-    private void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
   @Override
